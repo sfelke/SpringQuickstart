@@ -8,9 +8,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class UserController {
 
+    private GreetingHandler greetingHandler;
+
+    public UserController(GreetingHandler greetingHandler){
+        this.greetingHandler = greetingHandler;
+    }
+
     @RequestMapping("/hello/{user}")
     public String helloUserPath(@PathVariable String user){
-        return "hello " + user;
+        return greetingHandler.sayHi() + " from " + user;
     }
 
     @RequestMapping("/hello")
