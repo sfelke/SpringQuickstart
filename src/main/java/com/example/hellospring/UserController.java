@@ -2,19 +2,17 @@ package com.example.hellospring;
 
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 public class UserController {
 
     private GreetingHandler greetingHandler;
+    private UserRepository userRepository;
 
-    private List<User> users = new ArrayList<>();
-
-
-    public UserController(GreetingHandler greetingHandler){
+    public UserController(GreetingHandler greetingHandler, UserRepository userRepository){
         this.greetingHandler = greetingHandler;
+        this.userRepository = userRepository;
     }
 
     @RequestMapping("/hello/{user}")
@@ -22,19 +20,14 @@ public class UserController {
         return greetingHandler.sayHi() + " from " + user;
     }
 
-    @RequestMapping("/hello")
-    public String helloUserParam(@RequestParam String user){
-        return "hello " + user;
-    }
-
     @RequestMapping(value = "/user", method = RequestMethod.POST)
     public void createUser(@RequestBody User user){
-        users.add(user);
+        userRepository.save(user);
     }
 
     @RequestMapping(value = "/user")
     public List<User> createUser(){
-        return users;
+        return userRepository.findAll();
     }
 
 }
