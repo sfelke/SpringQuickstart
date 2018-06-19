@@ -8,16 +8,18 @@ import java.util.List;
 public class UserController {
 
     private GreetingHandler greetingHandler;
+    private GoodbyeHandler goodbyeHandler;
     private UserRepository userRepository;
 
-    public UserController(GreetingHandler greetingHandler, UserRepository userRepository){
+    public UserController(GreetingHandler greetingHandler, GoodbyeHandler goodbyeHandler, UserRepository userRepository){
         this.greetingHandler = greetingHandler;
+        this.goodbyeHandler = goodbyeHandler;
         this.userRepository = userRepository;
     }
 
     @RequestMapping("/hello/{user}")
     public String helloUserPath(@PathVariable String user){
-        return greetingHandler.sayHi() + " from " + user;
+        return greetingHandler.sayHi() + " from " + user + " " + goodbyeHandler.sayGoodbye();
     }
 
     @RequestMapping(value = "/user", method = RequestMethod.POST)
