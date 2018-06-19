@@ -1,2 +1,20 @@
+
 user:
   standardGreeting: "Bon giorno"
+
+spring:
+  profiles:
+    active: dev
+
+---
+
+spring:
+  profiles: dev
+
+user:
+  standardGreeting: "Hi"
+
+---
+
+spring:
+  profiles: prod
